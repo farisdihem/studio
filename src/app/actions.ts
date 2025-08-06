@@ -9,13 +9,19 @@ const actionSchema = z.object({
     message: 'Invalid image data URI',
   }),
   style: z.string(),
+  customPrompt: z.string().optional(),
 });
 
-export async function generateStyledImageAction(input: { photoDataUri: string; style: string }) {
+export async function generateStyledImageAction(input: { photoDataUri: string; style: string, customPrompt?: string }) {
   try {
-    const { photoDataUri, style } = actionSchema.parse(input);
+    const { photoDataUri, style, customPrompt } = actionSchema.parse(input);
 
-    const stylePrompt = `Redesign this room in a ${style} interior design style. Focus on creating a photorealistic and aesthetically pleasing result. The new image must have the same dimensions and perspective as the original image.`;
+    let stylePrompt = `Redesign this room in a ${style} interior design style.`;
+    if (customPrompt) {
+      stylePrompt += ` Also, incorporate the following request: "${customPrompt}".`;
+    }
+    stylePrompt += ' Focus on creating a photorealistic and aesthetically pleasing result. The new image must have the same dimensions and perspective as the original image.';
+
 
     const result = await generateStyledImage({
       photoDataUri,

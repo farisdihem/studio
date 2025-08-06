@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { ImageComparison } from './image-comparison';
 
 const styles = ['حديث', 'كلاسيكي', 'فاخر', 'بسيط', 'صناعي', 'بوهيمي'];
@@ -18,6 +19,7 @@ export function MainPanel() {
   const [originalImageFile, setOriginalImageFile] = useState<File | null>(null);
   const [originalImagePreview, setOriginalImagePreview] = useState<string | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string>(styles[0]);
+  const [customPrompt, setCustomPrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -69,7 +71,7 @@ export function MainPanel() {
 
     try {
       const photoDataUri = await fileToDataUri(originalImageFile);
-      const result = await generateStyledImageAction({ photoDataUri, style: selectedStyle });
+      const result = await generateStyledImageAction({ photoDataUri, style: selectedStyle, customPrompt });
       
       if (result.error) throw new Error(result.error);
       
@@ -140,6 +142,18 @@ export function MainPanel() {
               </SelectContent>
             </Select>
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="custom-prompt" className="font-semibold text-base">3. أضف طلبًا مخصصًا (اختياري)</Label>
+            <Textarea
+              id="custom-prompt"
+              placeholder="مثال: إضافة نباتات، تغيير لون الأريكة إلى الأزرق..."
+              value={customPrompt}
+              onChange={(e) => setCustomPrompt(e.target.value)}
+              disabled={isLoading}
+              className="text-base"
+              rows={3}
+            />
+          </div>
         </CardContent>
         <CardFooter>
           <Button onClick={handleGenerateClick} disabled={isLoading || !originalImageFile} className="w-full text-lg py-6 font-bold">
@@ -174,7 +188,7 @@ export function MainPanel() {
              <div className="text-center text-muted-foreground p-8">
                 <Sparkles className="mx-auto h-16 w-16 text-primary/70 mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">سيظهر تصميمك الجديد هنا</h3>
-                <p className="text-base">اتبع الخطوات على اليمين للبدء.</p>
+                <p className="text-base">اتبع الخطوات على اليسار للبدء.</p>
              </div>
            </Card>
         )}

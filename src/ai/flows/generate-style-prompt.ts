@@ -47,7 +47,7 @@ const generateStyledImageFlow = ai.defineFlow(
         prompt: [
           {text: "You are an AI interior designer. Your task is to redesign the room in the provided image based on the user's style prompt. You MUST use the provided image as a strong reference, maintaining the original room layout, perspective, and core elements. Only modify the style, furniture, and decor as requested in the prompt."},
           {media: {url: input.photoDataUri}},
-          {text: `Redesign the room in the provided image according to the following style prompt: ${input.stylePrompt}.`},
+          {text: `Redesign the room in the provided image according to the following style prompt: ${input.stylePrompt}`},
         ],
         config: {
           responseModalities: ['TEXT', 'IMAGE'],
