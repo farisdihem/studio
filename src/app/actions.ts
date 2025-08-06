@@ -15,7 +15,7 @@ export async function generateStyledImageAction(input: { photoDataUri: string; s
   try {
     const { photoDataUri, style } = actionSchema.parse(input);
 
-    const stylePrompt = `Redesign this room in a ${style} interior design style. Focus on creating a photorealistic and aesthetically pleasing result.`;
+    const stylePrompt = `Redesign this room in a ${style} interior design style. Focus on creating a photorealistic and aesthetically pleasing result. The new image must have the same dimensions and perspective as the original image.`;
 
     const result = await generateStyledImage({
       photoDataUri,
