@@ -9,7 +9,7 @@ export default function Home() {
         <MainPanel />
       </main>
       <footer className="py-6 text-center text-sm text-muted-foreground">
-        <p>DecoAI – Where Ideas Begin</p>
+        <p>DecoAI - حيث تبدأ الأفكار</p>
       </footer>
     </div>
   );

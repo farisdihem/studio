@@ -29,8 +29,8 @@ export function ImageComparison({ original, styled }: ImageComparisonProps) {
   return (
     <Card className="w-full overflow-hidden shadow-lg">
       <CardHeader>
-        <CardTitle>Your Redesigned Room</CardTitle>
-        <CardDescription>Slide to compare the original and styled images.</CardDescription>
+        <CardTitle>غرفتك المعاد تصميمها</CardTitle>
+        <CardDescription>حرك لمقارنة الصور الأصلية والمصممة.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="relative w-full aspect-video select-none" ref={containerRef}>
@@ -76,8 +76,8 @@ export function ImageComparison({ original, styled }: ImageComparisonProps) {
       </CardContent>
       <CardFooter>
         <Button onClick={handleDownload} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 text-base font-semibold">
-          <Download className="mr-2 h-5 w-5" />
-          Download Styled Image
+          <Download className="ml-2 h-5 w-5" />
+          تنزيل الصورة المصممة
         </Button>
       </CardFooter>
     </Card>

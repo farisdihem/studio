@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { ImageComparison } from './image-comparison';
 
-const styles = ['Modern', 'Classic', 'Luxury', 'Minimalist', 'Industrial', 'Bohemian'];
+const styles = ['حديث', 'كلاسيكي', 'فاخر', 'بسيط', 'صناعي', 'بوهيمي'];
 
 export function MainPanel() {
   const [originalImageFile, setOriginalImageFile] = useState<File | null>(null);
@@ -30,8 +30,8 @@ export function MainPanel() {
       setGeneratedImage(null);
     } else {
       toast({
-        title: "Invalid File Type",
-        description: "Please upload an image file (e.g., JPG, PNG).",
+        title: "نوع الملف غير صالح",
+        description: "يرجى تحميل ملف صورة (مثل JPG, PNG).",
         variant: "destructive",
       });
     }
@@ -57,8 +57,8 @@ export function MainPanel() {
   const handleGenerateClick = async () => {
     if (!originalImageFile) {
       toast({
-        title: 'No Image Selected',
-        description: 'Please upload an image first.',
+        title: 'لم يتم اختيار صورة',
+        description: 'يرجى تحميل صورة أولاً.',
         variant: 'destructive',
       });
       return;
@@ -77,8 +77,8 @@ export function MainPanel() {
 
     } catch (error) {
       toast({
-        title: 'Generation Failed',
-        description: error instanceof Error ? error.message : 'An unknown error occurred.',
+        title: 'فشل الإنشاء',
+        description: error instanceof Error ? error.message : 'حدث خطأ غير معروف.',
         variant: 'destructive',
       });
     } finally {
@@ -87,15 +87,15 @@ export function MainPanel() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" dir="rtl">
       <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle className="text-3xl font-headline tracking-tight">Design Your Space</CardTitle>
-          <CardDescription>Upload a photo of your room and select a style to see the magic happen.</CardDescription>
+          <CardTitle className="text-3xl font-headline tracking-tight">صمم مساحتك</CardTitle>
+          <CardDescription>حمل صورة لغرفتك واختر نمطًا لرؤية السحر يحدث.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="image-upload" className="font-semibold text-base">1. Upload Image</Label>
+            <Label htmlFor="image-upload" className="font-semibold text-base">1. تحميل الصورة</Label>
             <div
               onDragEnter={(e) => handleDragEvents(e, true)}
               onDragLeave={(e) => handleDragEvents(e, false)}
@@ -116,22 +116,22 @@ export function MainPanel() {
               />
               {originalImagePreview ? (
                 <div className="relative w-full aspect-video">
-                  <Image src={originalImagePreview} alt="Uploaded room preview" fill className="mx-auto rounded-md object-contain" />
+                  <Image src={originalImagePreview} alt="معاينة الغرفة التي تم تحميلها" fill className="mx-auto rounded-md object-contain" />
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-48 gap-2 text-muted-foreground">
                   <ImageUp className="w-12 h-12" />
-                  <p className="font-semibold">Click or drag file to this area to upload</p>
-                  <p className="text-sm">Supports all image formats</p>
+                  <p className="font-semibold">انقر أو اسحب الملف إلى هذه المنطقة للتحميل</p>
+                  <p className="text-sm">يدعم جميع صيغ الصور</p>
                 </div>
               )}
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="style-select" className="font-semibold text-base">2. Select Style</Label>
+            <Label htmlFor="style-select" className="font-semibold text-base">2. اختر النمط</Label>
             <Select onValueChange={setSelectedStyle} defaultValue={selectedStyle} disabled={isLoading}>
               <SelectTrigger id="style-select" className="text-base">
-                <SelectValue placeholder="Choose a style" />
+                <SelectValue placeholder="اختر نمطًا" />
               </SelectTrigger>
               <SelectContent>
                 {styles.map(style => (
@@ -145,13 +145,13 @@ export function MainPanel() {
           <Button onClick={handleGenerateClick} disabled={isLoading || !originalImageFile} className="w-full text-lg py-6 font-bold">
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Generating...
+                <Loader2 className="ml-2 h-5 w-5 animate-spin" />
+                ...جاري الإنشاء
               </>
             ) : (
               <>
-                <Wand2 className="mr-2 h-5 w-5" />
-                Generate Design
+                <Wand2 className="ml-2 h-5 w-5" />
+                إنشاء التصميم
               </>
             )}
           </Button>
@@ -162,8 +162,8 @@ export function MainPanel() {
         {isLoading && (
            <Card className="w-full h-full flex flex-col items-center justify-center bg-muted/50 border-dashed animate-pulse">
              <Loader2 className="w-16 h-16 animate-spin text-primary" />
-             <p className="mt-4 text-muted-foreground text-lg">AI is redesigning your room...</p>
-             <p className="text-muted-foreground text-sm">This can take up to a minute.</p>
+             <p className="mt-4 text-muted-foreground text-lg">يقوم الذكاء الاصطناعي بإعادة تصميم غرفتك...</p>
+             <p className="text-muted-foreground text-sm">قد يستغرق هذا ما يصل إلى دقيقة.</p>
            </Card>
         )}
         {generatedImage && originalImagePreview && (
@@ -173,8 +173,8 @@ export function MainPanel() {
            <Card className="w-full h-full flex flex-col items-center justify-center bg-muted/30 border-dashed">
              <div className="text-center text-muted-foreground p-8">
                 <Sparkles className="mx-auto h-16 w-16 text-primary/70 mb-4" />
-                <h3 className="text-2xl font-semibold mb-2">Your new design will appear here</h3>
-                <p className="text-base">Follow the steps on the left to get started.</p>
+                <h3 className="text-2xl font-semibold mb-2">سيظهر تصميمك الجديد هنا</h3>
+                <p className="text-base">اتبع الخطوات على اليمين للبدء.</p>
              </div>
            </Card>
         )}
